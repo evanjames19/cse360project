@@ -1,1 +1,2 @@
-# cse360project
+# CSE 360 project
+
