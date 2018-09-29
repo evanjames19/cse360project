@@ -20,6 +20,7 @@ public static void main(String[] args) {
     frame.getContentPane().add(button); // Adds Button to content pane of frame
     frame.setVisible(true);
 	System.out.println("Hello.");
+	// hi
     
 }
 }
