@@ -19,6 +19,7 @@ public static void main(String[] args) {
     JButton button = new JButton("Press");
     frame.getContentPane().add(button); // Adds Button to content pane of frame
     frame.setVisible(true);
+	System.out.println("Hello.");
     
 }
 }
