@@ -31,7 +31,8 @@ public class ActivityList {
 		Activity newActivity = new Activity();
 		newActivity.name = name;
 		newActivity.duration = duration;
-		newActivity.predecessors = new ArrayList<Activity>();
+		newActivity.predecessors = null;
+		newActivity.successors = new ArrayList<Activity>();
 		//add new node to first ArrayList
 		first.add(newActivity);
 		activities.add(newActivity);
@@ -94,6 +95,7 @@ public class ActivityList {
 	
 	public void calculatePaths() {
 		String path = "";
+		System.out.println(first.size());
 		for (int i = 0; i < first.size(); i++) {
 			path = first.get(i).name + ": " + first.get(i).duration + "; ";
 			traverse(first.get(i).successors, path);		
@@ -102,9 +104,11 @@ public class ActivityList {
 
 	public String getPaths() {
 		String pathList = "";
+		calculatePaths();
 		for (int i = 0; i < paths.size(); i++) {
 			pathList = pathList + paths.get(i) + "\n"; 
 		}
+		System.out.println(pathList);
 		return pathList;
 	}
 

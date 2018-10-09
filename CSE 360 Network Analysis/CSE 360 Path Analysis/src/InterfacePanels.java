@@ -356,18 +356,20 @@ public class InterfacePanels extends JPanel {
 				int dur = 0;
 				try {
 					dur = Integer.parseInt(duration);
-					if (predecessorField.getText() == null) {
+					String pred = predecessorField.getText();
+					System.out.println(predecessorField.getText());
+					if (pred.equals("") || pred == null) {
 						list.addFirst(name, dur);
 					}
 					else {
 						list.add(name, dur, predecessorField.getText());
 					}	
-					list.printAll();
+					//list.printAll();
 					activityNameField.setText(null);
 					durationField.setText(null);
 					predecessorField.setText(null);
 				}
-				catch (Exception e){
+				catch (NumberFormatException e){
 					JOptionPane.showMessageDialog(mainPanel,
 							"Please enter an integer for duration.",
 							"Inane error",
