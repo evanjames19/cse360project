@@ -13,7 +13,8 @@ public class ActivityList {
 	private ArrayList<Activity> activities;
 
 	public ActivityList() {
-		first = null;
+		first = new ArrayList<Activity>();
+		activities = new ArrayList<Activity>();
 	}
 
 	public ArrayList<Activity> getFirst() { // returns ArrayList of first nodes
@@ -27,10 +28,11 @@ public class ActivityList {
 		Activity newActivity = new Activity();
 		newActivity.name = name;
 		newActivity.duration = duration;
-		newActivity.predecessors = null;
+		newActivity.predecessors = new ArrayList<Activity>();
 		//add new node to first ArrayList
 		first.add(newActivity);
 		activities.add(newActivity);
+		System.out.println(first.get(0).name);
 	}
 
 	public void add(String name, int duration, String pred) {
@@ -41,6 +43,7 @@ public class ActivityList {
 		}
 		newActivity.name = name;
 		newActivity.duration = duration;
+		newActivity.predecessors = new ArrayList<Activity>();
 		String p[] = pred.split(", ");
 		for (int i = 0; i < p.length; i+=2) {
 			Activity prevAct = getActivity(p[i]);

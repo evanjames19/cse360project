@@ -26,7 +26,7 @@ public class InterfacePanels extends JPanel {
 	
 	private JTextField activityNameField;						// user will enter name here
 	private JTextField durationField;							// user will enter duration here
-	private JComboBox predecessorBox;							// will be used to select predecessors from previous activities user entered
+	private JTextField predecessorField;							// will be used to select predecessors from previous activities user entered
 	
 	private JTextArea aboutField;								// will be on about window (non-editable for user)
 	
@@ -43,7 +43,7 @@ public class InterfacePanels extends JPanel {
 	
 	
 	public InterfacePanels() {
-		
+		ActivityList list = new ActivityList();
 		JPanel panelsContainer = new JPanel();				// contains ALL panels****
 		JPanel mainPanel = new JPanel();					// contains home page
 		JPanel helpPanel = new JPanel();					// contains help page
@@ -142,13 +142,14 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(durationField, mainConstraints);
 		
-		predecessorBox = new JComboBox();
-		predecessorBox.setToolTipText("Choose a predecessor");
+		predecessorField = new JTextField(30);
+		predecessorField.setText(null);
+		predecessorField.setToolTipText("Enter predecessors");
 		mainConstraints.gridx = 10;
 		mainConstraints.gridy = 2;
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
-		mainPanel.add(predecessorBox, mainConstraints);
+		mainPanel.add(predecessorField, mainConstraints);
 		
 		// ERROR/SUCCESS MESSAGE BOX (NON-EDITABLE TO USER)
 		// 4th quadrant of home page ("mainPanel")
@@ -331,7 +332,7 @@ public class InterfacePanels extends JPanel {
 			
 		});
 		
-		predecessorBox.addActionListener(new ActionListener() {			// 
+		predecessorField.addActionListener(new ActionListener() {			// 
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -348,7 +349,16 @@ public class InterfacePanels extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// adding another activity, stays on home page (mainPanel)
-				
+				String name = activityNameField.getText();
+				String duration = durationField.getText();
+				System.out.println(predecessorField.getText());
+				int dur = Integer.parseInt(duration);
+				if (predecessorField.getText().equals("")) {
+					list.addFirst(name, dur);
+				}
+				else {
+					list.add(name, dur, predecessorField.getText());
+				}	
 			}
 			
 		});
