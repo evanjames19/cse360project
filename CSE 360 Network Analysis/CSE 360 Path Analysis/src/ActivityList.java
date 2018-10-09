@@ -2,15 +2,17 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class ActivityList {
-		
+
 	private class Activity{
 		public String name;
 		public int duration;
 		public ArrayList<Activity> predecessors;
+		public ArrayList<Activity> successors;
 	}
 
 	private ArrayList<Activity> first;
 	private ArrayList<Activity> activities;
+	private ArrayList<String> paths;
 
 	public ActivityList() {
 		first = new ArrayList<Activity>();
@@ -38,20 +40,24 @@ public class ActivityList {
 	public void add(String name, int duration, String pred) {
 		//create a new node
 		Activity newActivity = getActivity(name);
-		if (newActivity==null) {
+		if (newActivity==null) { //if activity does not already exist
 			newActivity = new Activity();
 		}
 		newActivity.name = name;
 		newActivity.duration = duration;
 		newActivity.predecessors = new ArrayList<Activity>();
-		String p[] = pred.split(", ");
-		for (int i = 0; i < p.length; i+=2) {
+		newActivity.successors = new ArrayList<Activity>();
+		String p[] = pred.split(", "); //get list of predecessors
+		for (int i = 0; i < p.length; i++) { //for every predecessor
 			Activity prevAct = getActivity(p[i]);
-			if (prevAct != null)
+			if (prevAct != null) {
+				prevAct.successors.add(newActivity);
 				newActivity.predecessors.add(prevAct);
-			else {
-				prevAct = new Activity();
-				prevAct.name = p[i];
+			}
+			else if (!p[i].equals("")){
+				Activity prev = new Activity();
+				prev.name = p[i];
+				newActivity.predecessors.add(prev);
 			}
 		}
 		activities.add(newActivity);
@@ -74,17 +80,51 @@ public class ActivityList {
 		return null;*/
 	}
 
-	public Activity traverse(ArrayList<Activity> list, String name) {
+	public String traverse(ArrayList<Activity> list) {
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).name.equals(name))
-				return list.get(i);
+			return list.get(i).name + ": " + list.get(i).duration + "; ";
 		}
-		return null;
+		return path;
+	}
+	
+	public void calculatePaths() {
+		String path = "";
+		for (int i = 0; i < first.size(); i++) {
+			path = first.get(i).name + ": " + first.get(i).duration + "; ";
+			path = path + traverse(first.get(i).successors);
+			
+		}
 	}
 
-	//public String getPath() {
+	public String getPaths() {
+		String pathList = "";
+		for (int i = 0; i < paths.size(); i++) {
+			pathList = pathList + paths.get(i) + "\n"; 
+		}
+		return pathList;
+	}
 
-	//}
+	public boolean deleteLinkedList() {
+		first = new ArrayList<Activity>();
+		activities = new ArrayList<Activity>();
+		return (first.size() == 0 && activities.size() == 0);
+	}
+
+	public void printAll() {
+		for (int i = 0; i < activities.size(); i++) {
+			System.out.println(activities.get(i).name + " " + activities.get(i).duration);
+			System.out.println("Pred:");
+			for (int j = 0; j < activities.get(i).predecessors.size(); j++) {
+				System.out.println(activities.get(i).predecessors.get(j).name + " " + activities.get(i).predecessors.get(j).duration);
+			}
+			System.out.println("Succ:");
+			for (int j = 0; j < activities.get(i).successors.size(); j++) {
+				System.out.println(activities.get(i).successors.get(j).name + " " + activities.get(i).successors.get(j).duration);
+			}
+		}
+
+		System.out.println("\n\n\n\n\n\n");
+	}
 
 
 }
