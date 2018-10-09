@@ -304,9 +304,10 @@ public class InterfacePanels extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				String pathList = list.getPaths();
+				pathDisplayField.setText((pathList));
 				interfacePanel.show(panelsContainer, "Path");			// takes it to "Path" panel/window which shows the user the activities/paths
-
+				
 			}
 
 		});

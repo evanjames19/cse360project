@@ -17,6 +17,7 @@ public class ActivityList {
 	public ActivityList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
+		paths = new ArrayList<String>();
 	}
 
 	public ArrayList<Activity> getFirst() { // returns ArrayList of first nodes
@@ -80,19 +81,22 @@ public class ActivityList {
 		return null;*/
 	}
 
-	public String traverse(ArrayList<Activity> list) {
+	public void traverse(ArrayList<Activity> list, String path) {
 		for (int i = 0; i < list.size(); i++) {
-			return list.get(i).name + ": " + list.get(i).duration + "; ";
+			path = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
+			if (list.get(i).successors.size()>0)
+				traverse(list.get(i).successors, path);
+			else {
+				paths.add(path);
+			}
 		}
-		return path;
 	}
 	
 	public void calculatePaths() {
 		String path = "";
 		for (int i = 0; i < first.size(); i++) {
 			path = first.get(i).name + ": " + first.get(i).duration + "; ";
-			path = path + traverse(first.get(i).successors);
-			
+			traverse(first.get(i).successors, path);		
 		}
 	}
 
