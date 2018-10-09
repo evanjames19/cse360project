@@ -30,7 +30,7 @@ public class ActivityList {
 		newActivity.predecessors = null;
 		//add new node to first ArrayList
 		first.add(newActivity);
-		activities.add((newActivity);
+		activities.add(newActivity);
 	}
 
 	public void add(String name, int duration, String pred) {
