@@ -361,7 +361,6 @@ public class InterfacePanels extends JPanel {
 				try {
 					dur = Integer.parseInt(duration);
 					String pred = predecessorField.getText();
-					System.out.println(predecessorField.getText());
 					if (pred.equals("") || pred == null) {
 						list.addFirst(name, dur);
 					}

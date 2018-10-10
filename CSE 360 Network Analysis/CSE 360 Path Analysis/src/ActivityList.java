@@ -32,18 +32,18 @@ public class ActivityList {
 		if (newActivity==null) { //if activity does not already exist
 			newActivity = new Activity();
 			activities.add(newActivity);
+			newActivity.predecessors = new ArrayList<Activity>();
+			newActivity.successors = new ArrayList<Activity>();
 		}
 		newActivity.name = name;
 		newActivity.duration = duration;
-		newActivity.predecessors = new ArrayList<Activity>();
-		newActivity.successors = new ArrayList<Activity>();
 		for (int i = 0; i < activities.size(); i++) {
-			if (activities.get(i).predecessors.contains(newActivity))
+			if (activities.get(i).predecessors.contains(newActivity)
+					&& !newActivity.successors.contains(activities.get(i)))
 				newActivity.successors.add(activities.get(i));
 		}
 		//add new node to first ArrayList
 		first.add(newActivity);
-		System.out.println(first.get(0).name);
 	}
 
 	public void add(String name, int duration, String pred) {
@@ -51,15 +51,14 @@ public class ActivityList {
 		Activity newActivity = getActivity(name);
 		if (newActivity==null) { //if activity does not already exist
 			newActivity = new Activity();
+			newActivity.predecessors = new ArrayList<Activity>();
+			newActivity.successors = new ArrayList<Activity>();
 		}
 		newActivity.name = name;
 		newActivity.duration = duration;
-		newActivity.predecessors = new ArrayList<Activity>();
-		newActivity.successors = new ArrayList<Activity>();
 		String p[] = pred.split(", "); //get list of predecessors
 		for (int i = 0; i < p.length; i++) { //for every predecessor
 			Activity prevAct = getActivity(p[i]);
-			System.out.println(p[i]);
 			if (prevAct != null) {
 				prevAct.successors.add(newActivity);
 				newActivity.predecessors.add(prevAct);
@@ -67,6 +66,9 @@ public class ActivityList {
 			else if (!p[i].equals("")){
 				Activity prev = new Activity();
 				prev.name = p[i];
+				prev.predecessors = new ArrayList<Activity>();
+				prev.successors = new ArrayList<Activity>();
+				prev.successors.add(newActivity);
 				newActivity.predecessors.add(prev);
 				activities.add(prev);
 			}
@@ -104,7 +106,6 @@ public class ActivityList {
 
 	public void calculatePaths() {
 		String path = "";
-		System.out.println(first.size());
 		for (int i = 0; i < first.size(); i++) {
 			path = first.get(i).name + ": " + first.get(i).duration + "; ";
 			traverse(first.get(i).successors, path);		
@@ -143,6 +144,7 @@ public class ActivityList {
 					System.out.println(activities.get(i).successors.get(j).name + " " + activities.get(i).successors.get(j).duration);
 				}
 			}
+			System.out.println("\n");
 		}
 
 		System.out.println("\n\n\n\n\n\n");
