@@ -28,14 +28,21 @@ public class ActivityList {
 	public void addFirst(String name, int duration)   
 	{
 		//create a new node
-		Activity newActivity = new Activity();
+		Activity newActivity = getActivity(name);
+		if (newActivity==null) { //if activity does not already exist
+			newActivity = new Activity();
+			activities.add(newActivity);
+		}
 		newActivity.name = name;
 		newActivity.duration = duration;
-		newActivity.predecessors = null;
+		newActivity.predecessors = new ArrayList<Activity>();
 		newActivity.successors = new ArrayList<Activity>();
+		for (int i = 0; i < activities.size(); i++) {
+			if (activities.get(i).predecessors.contains(newActivity))
+				newActivity.successors.add(activities.get(i));
+		}
 		//add new node to first ArrayList
 		first.add(newActivity);
-		activities.add(newActivity);
 		System.out.println(first.get(0).name);
 	}
 
@@ -52,6 +59,7 @@ public class ActivityList {
 		String p[] = pred.split(", "); //get list of predecessors
 		for (int i = 0; i < p.length; i++) { //for every predecessor
 			Activity prevAct = getActivity(p[i]);
+			System.out.println(p[i]);
 			if (prevAct != null) {
 				prevAct.successors.add(newActivity);
 				newActivity.predecessors.add(prevAct);
@@ -60,6 +68,7 @@ public class ActivityList {
 				Activity prev = new Activity();
 				prev.name = p[i];
 				newActivity.predecessors.add(prev);
+				activities.add(prev);
 			}
 		}
 		activities.add(newActivity);
@@ -92,7 +101,7 @@ public class ActivityList {
 			}
 		}
 	}
-	
+
 	public void calculatePaths() {
 		String path = "";
 		System.out.println(first.size());
@@ -115,19 +124,24 @@ public class ActivityList {
 	public boolean deleteLinkedList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
+		paths = new ArrayList<String>();
 		return (first.size() == 0 && activities.size() == 0);
 	}
 
 	public void printAll() {
 		for (int i = 0; i < activities.size(); i++) {
 			System.out.println(activities.get(i).name + " " + activities.get(i).duration);
-			System.out.println("Pred:");
-			for (int j = 0; j < activities.get(i).predecessors.size(); j++) {
-				System.out.println(activities.get(i).predecessors.get(j).name + " " + activities.get(i).predecessors.get(j).duration);
+			if (activities.get(i).predecessors!=null) {
+				System.out.println("Pred:");
+				for (int j = 0; j < activities.get(i).predecessors.size(); j++) {
+					System.out.println(activities.get(i).predecessors.get(j).name + " " + activities.get(i).predecessors.get(j).duration);
+				}
 			}
-			System.out.println("Succ:");
-			for (int j = 0; j < activities.get(i).successors.size(); j++) {
-				System.out.println(activities.get(i).successors.get(j).name + " " + activities.get(i).successors.get(j).duration);
+			if (activities.get(i).successors!=null) {
+				System.out.println("Succ:");
+				for (int j = 0; j < activities.get(i).successors.size(); j++) {
+					System.out.println(activities.get(i).successors.get(j).name + " " + activities.get(i).successors.get(j).duration);
+				}
 			}
 		}
 
