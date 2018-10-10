@@ -177,31 +177,102 @@ public class InterfacePanels extends JPanel {
 
 
 
+// 		//ABOUT PANEL----------------------------------------------------------------------------------------------------
+// 		aboutPanel.setLayout(new GridBagLayout());
+
+// 		aboutConstraints.insets = new Insets(10, 10, 10, 10);
+
+// 		aboutToHomeButton = new JButton("Home");
+// 		aboutConstraints.gridx = 0;
+// 		aboutConstraints.gridy = 0;
+// 		aboutConstraints.gridwidth = 5;
+// 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		aboutPanel.add(aboutToHomeButton, aboutConstraints);
+
+// 		aboutWindowName = new JLabel("	    ABOUT");
+// 		aboutConstraints.gridx = 0;
+// 		aboutConstraints.gridy = 1;
+// 		aboutConstraints.gridwidth = 5;
+// 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		aboutPanel.add(aboutWindowName, aboutConstraints);
+
+
+// 		aboutField = new JTextArea(20, 33);
+// 		//ENTER "ABOUT" TEXT HERE
+// 		String aboutText = "This program, Network Path Analysis, was created by Abrar, Abe, Shuchi, and Evan. "
+// 				+ "It will allow the user to enter activity names and to be entered into a linked list. The paths will be analyzed and"
+// 				+ " printed in decreasing order of duration. It will not accept single activities lacking connections, circular paths, or decimal durations. ";
+// 		aboutField.setText(aboutText);
+// 		aboutField.setEditable(false);
+// 		aboutConstraints.gridx = 5;
+// 		aboutConstraints.gridy = 0;
+// 		aboutConstraints.gridwidth = 15;
+// 		aboutConstraints.gridheight = 7;
+// 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		aboutConstraints.fill = GridBagConstraints.VERTICAL;
+// 		aboutPanel.add(aboutField, aboutConstraints);
+
+// 		//HELP PANEL-------------------------------------------------------------------------------------------------------
+// 		helpPanel.setLayout(new GridBagLayout());
+
+// 		helpConstraints.insets = new Insets(10, 10, 10, 10);
+
+// 		helpToHomeButton = new JButton("Home");
+// 		helpConstraints.gridx = 0;
+// 		helpConstraints.gridy = 0;
+// 		helpConstraints.gridwidth = 5;
+// 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		helpPanel.add(helpToHomeButton, helpConstraints);
+
+// 		helpWindowName = new JLabel("     HELP");
+// 		helpConstraints.gridx = 0;
+// 		helpConstraints.gridy = 1;
+// 		helpConstraints.gridwidth = 5;
+// 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		helpPanel.add(helpWindowName, helpConstraints);
+
+// 		helpField = new JTextArea(20, 33);
+// 		//ENTER "HELP" TEXT HERE
+// 		String helpText = "For the Activity Name field, enter a name for the activity.\n"
+// 				+ "For the Duration field, enter a whole number (Negative values and decimals will not be accepted)\n"
+// 				+ "For the Predecessors field, enter the exact names of predecessors separate by ', '.\n"
+// 				+ "etc.";
+// 		helpField.setText(helpText);
+// 		helpField.setEditable(false);
+// 		helpConstraints.gridx = 5;
+// 		helpConstraints.gridy = 0;
+// 		helpConstraints.gridwidth = 15;
+// 		helpConstraints.gridheight = 7;
+// 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
+// 		helpConstraints.fill = GridBagConstraints.VERTICAL;
+// 		helpPanel.add(helpField, helpConstraints);
+		
 		//ABOUT PANEL----------------------------------------------------------------------------------------------------
 		aboutPanel.setLayout(new GridBagLayout());
-
+		
 		aboutConstraints.insets = new Insets(10, 10, 10, 10);
-
+		
 		aboutToHomeButton = new JButton("Home");
 		aboutConstraints.gridx = 0;
 		aboutConstraints.gridy = 0;
 		aboutConstraints.gridwidth = 5;
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutPanel.add(aboutToHomeButton, aboutConstraints);
-
+		
 		aboutWindowName = new JLabel("	    ABOUT");
 		aboutConstraints.gridx = 0;
 		aboutConstraints.gridy = 1;
 		aboutConstraints.gridwidth = 5;
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutPanel.add(aboutWindowName, aboutConstraints);
-
-
+	
+		
 		aboutField = new JTextArea(20, 33);
 		//ENTER "ABOUT" TEXT HERE
-		String aboutText = "This program, Network Path Analysis, was created by Abrar, Abe, Shuchi, and Evan. "
-				+ "It will allow the user to enter activity names and to be entered into a linked list. The paths will be analyzed and"
-				+ " printed in decreasing order of duration. It will not accept single activities lacking connections, circular paths, or decimal durations. ";
+		String aboutText = "This program, Network Path Analysis, was created by Abrar, Abe, Shuchi, and Evan.\n "
+				+ "It will allow the user to enter activity names and to be entered into a linked list.\n The paths will be analyzed and"			
+				+ " printed in decreasing order of duration.\n It will not accept single activities lacking connections, circular paths, or decimal durations. ";
+
 		aboutField.setText(aboutText);
 		aboutField.setEditable(false);
 		aboutConstraints.gridx = 5;
@@ -211,26 +282,26 @@ public class InterfacePanels extends JPanel {
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutConstraints.fill = GridBagConstraints.VERTICAL;
 		aboutPanel.add(aboutField, aboutConstraints);
-
+		
 		//HELP PANEL-------------------------------------------------------------------------------------------------------
 		helpPanel.setLayout(new GridBagLayout());
-
+		
 		helpConstraints.insets = new Insets(10, 10, 10, 10);
-
+		
 		helpToHomeButton = new JButton("Home");
 		helpConstraints.gridx = 0;
 		helpConstraints.gridy = 0;
 		helpConstraints.gridwidth = 5;
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpPanel.add(helpToHomeButton, helpConstraints);
-
+		
 		helpWindowName = new JLabel("     HELP");
 		helpConstraints.gridx = 0;
 		helpConstraints.gridy = 1;
 		helpConstraints.gridwidth = 5;
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpPanel.add(helpWindowName, helpConstraints);
-
+		
 		helpField = new JTextArea(20, 33);
 		//ENTER "HELP" TEXT HERE
 		String helpText = "For the Activity Name field, enter a name for the activity.\n"
@@ -246,7 +317,7 @@ public class InterfacePanels extends JPanel {
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpConstraints.fill = GridBagConstraints.VERTICAL;
 		helpPanel.add(helpField, helpConstraints);
-
+		
 		//PATH DISPLAY PANEL------------------------------------------------------------------------------------------------
 
 
