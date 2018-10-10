@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class ActivityList {
@@ -14,12 +15,14 @@ public class ActivityList {
 	private ArrayList<Activity> activities;
 	private ArrayList<String> paths;
 	private ArrayList<Integer> pathlength;
+	private ArrayList<Integer> pathlengthSorted;
 
 	public ActivityList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
 		paths = new ArrayList<String>();
 		pathlength = new ArrayList<Integer>();
+		
 	}
 
 	public ArrayList<Activity> getFirst() { // returns ArrayList of first nodes
@@ -115,30 +118,32 @@ public class ActivityList {
 		return true;
 	}
 
-	public boolean calculatePaths() {
+	public String calculatePaths() {
 		String path = "";
 		int dur = 0;
 		int iterations = 0;
 		boolean successful;
 		if (first.size() <= 0) {
 			System.out.println(false);
-			return false;
+			return "Circular Path";
 		}
 		for (int i = 0; i < first.size(); i++) {
 			path = first.get(i).name + ": " + first.get(i).duration + "; ";
 			dur += first.get(i).duration;
 			iterations++;
+			if (first.get(i).successors.size() <= 0)
+				return "1 or more nodes not connected";
 			successful = traverse(first.get(i).successors, path, dur, iterations);
 			if (!successful)
-				return successful;
+				return "Circular Path";
 		}
-		return true;
+		return "Success";
 	}
 
 	public String getPaths() {
 		String pathList = "";
-		boolean successful = calculatePaths();
-		if (successful) {
+		String successful = calculatePaths();
+		if (successful.equals("Success")) {
 			sort(pathlength);
 			for (int i = 0; i < paths.size(); i++) {
 				int j = pathlength.indexOf(pathlengthSorted.get(paths.size()-1-i));
@@ -149,10 +154,18 @@ public class ActivityList {
 		}
 		else {
 			deleteLinkedList();
-			return "Circular Path";
+			return successful;
 		}
 	}
 
+	public void sort(ArrayList<Integer> pathlength) {
+		pathlengthSorted = new ArrayList<Integer>();
+		for (int i = 0; i < pathlength.size(); i++) {
+			pathlengthSorted.add(pathlength.get(i));
+		}
+		Collections.sort(pathlengthSorted);
+	}
+	
 	public boolean deleteLinkedList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
