@@ -95,11 +95,11 @@ public class ActivityList {
 
 	public void traverse(ArrayList<Activity> list, String path) {
 		for (int i = 0; i < list.size(); i++) {
-			path = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
+			String npath = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
 			if (list.get(i).successors.size()>0)
-				traverse(list.get(i).successors, path);
+				traverse(list.get(i).successors, npath);
 			else {
-				paths.add(path);
+				paths.add(npath);
 			}
 		}
 	}
@@ -116,7 +116,7 @@ public class ActivityList {
 		String pathList = "";
 		calculatePaths();
 		for (int i = 0; i < paths.size(); i++) {
-			pathList = pathList + paths.get(i) + "\n"; 
+			pathList = pathList + paths.get(i) + "\n\n\n\n"; 
 		}
 		System.out.println(pathList);
 		return pathList;
