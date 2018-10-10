@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 
 public class InterfacePanels extends JPanel {
@@ -18,11 +19,13 @@ public class InterfacePanels extends JPanel {
 	private JButton compileButton;								// takes user to displayPath panel
 	private JButton mainRestartButton;							// restart button for home page, refreshes data
 	private JButton displayRestartButton;						// restart button for the path display window/panel, refreshes data and takes user back to home page
-	private JButton addButton;								// adds another activity
+	private JButton addButton;									// adds another activity
 	private JButton aboutButton;								// takes user to about page/panel
 	private JButton helpButton;									// takes user to help page/panel
 	private JButton aboutToHomeButton;							// located on the about panel, takes user back to home page
 	private JButton helpToHomeButton;							// located on the help panel, takes user back to home page
+	private JButton exitButton;									// takes user to exit the program
+	
 	
 	private JTextField activityNameField;						// user will enter name here
 	private JTextField durationField;							// user will enter duration here
@@ -62,6 +65,8 @@ public class InterfacePanels extends JPanel {
 		
 		// LABELS
 		// 2nd quadrant of home page ("mainPanel")
+		
+	
 		
 		activityNamesLabel = new JLabel("Activity Name");
 		mainConstraints.gridx = 0;
@@ -122,6 +127,13 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(helpButton, mainConstraints);
+		
+		exitButton = new JButton("Exit");
+		mainConstraints.gridx = 0;
+		mainConstraints.gridy = 8;
+		mainConstraints.gridwidth = 10;
+		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
+		mainPanel.add(exitButton, mainConstraints);
 		
 		// TEXT FIELDS/DROP DOWN BOX (FOR USER INPUT)
 		// 1st quadrant of home page ("mainPanel")
@@ -300,18 +312,71 @@ public class InterfacePanels extends JPanel {
 		});
 		
 		compileButton.addActionListener(new ActionListener() {			// COMPILE button action listener
-			
+			// should account for if only 1 input node is being established.
+			// else it should just print all the linked list nodes sorted in the increasing duration
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				interfacePanel.show(panelsContainer, "Path");			// takes it to "Path" panel/window which shows the user the activities/paths
-				
+					int errordelay = 1500; 		// sets a delay to 1.5s to give user a timed warning message
+					
+					// used for the timer creation
+					ActionListener taskPerformer = new ActionListener() {
+					      public void actionPerformed(ActionEvent evt) {
+					    	durationField.setText("");
+							activityNameField.setText("");
+							durationField.setForeground(Color.BLACK);
+							activityNameField.setForeground(Color.BLACK);
+
+							
+					      }
+					 };
+					 // checks if activity field is empty 
+				if(activityNameField.getText().equals("")) {
+							
+							durationField.setText("");
+							activityNameField.setText("Please fill all required fields"); // prompts error
+							activityNameField.setForeground(Color.RED);
+							
+							Timer t = new Timer(errordelay, taskPerformer);
+							t.setRepeats(false);
+							t.start(); // triggers message for 1.5s
+							
+						}
+				 else {
+						 
+					try { // try to catch Number format if the duration is not a whole number
+						
+						
+					
+						String name = activityNameField.getText();
+						activityNameField.setText("");
+						
+						int d = Integer.parseInt(durationField.getText());
+						durationField.setText("");
+						interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+						
+						
+					}
+
+					
+					catch (NumberFormatException e) {
+						  durationField.setText("Please Enter a whole number!"); // prompts error
+						  durationField.setForeground(Color.RED);
+						  
+						Timer t = new Timer(errordelay, taskPerformer); // times for 1.5s
+						t.setRepeats(false);
+						t.start();
+
+					}
+								
+			}
 			}
 			
 		});
 		
 		displayRestartButton.addActionListener(new ActionListener() {			// RESTART button action listener (from "Path" panel to "Home"panel/home page, 
-																				// should refresh all data
+																			// should refresh all data
+			// clear the linked list
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -340,19 +405,80 @@ public class InterfacePanels extends JPanel {
 				
 			}
 			
+		});			// add/accept another activity "add another" button
+
+		
+		exitButton.addActionListener(new ActionListener() {	
+			
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+					System.exit(0);
+			}
 		});
+		
+
 		
 		addButton.addActionListener(new ActionListener() {			// add/accept another activity "add another" button
 			
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				int errordelay = 1500;
 				
-				// adding another activity, stays on home page (mainPanel)
+				ActionListener taskPerformer = new ActionListener() {
+				      public void actionPerformed(ActionEvent evt) {
+				    	durationField.setText("");
+						activityNameField.setText("");
+						durationField.setForeground(Color.BLACK);
+						activityNameField.setForeground(Color.BLACK);
+
+						
+				      }
+				 };
+				 
+				 if(activityNameField.getText().equals("")) {
+						
+						durationField.setText("");
+						activityNameField.setText("Please fill all required fields");
+						activityNameField.setForeground(Color.RED);
+						
+						Timer t = new Timer(errordelay, taskPerformer);
+						t.setRepeats(false);
+						t.start();
+						
+					}
+			else {
+				try {
+					
+					
+					 
+					String name = activityNameField.getText();
+					activityNameField.setText("");
+					
+					int d = Integer.parseInt(durationField.getText());
+					durationField.setText("");
+					
+					// add to the linked list
+				}
+
 				
+				catch (NumberFormatException e) {
+					  durationField.setText("Please Enter a whole number!");
+					  durationField.setForeground(Color.RED);
+					  
+					Timer t = new Timer(errordelay, taskPerformer);
+					t.setRepeats(false);
+					t.start();
+
+				}
+				 }
+
 			}
 			
 		});
 		
+			
 		add(panelsContainer);
 		
 	}
