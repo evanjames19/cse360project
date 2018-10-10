@@ -93,33 +93,62 @@ public class ActivityList {
 		return null;*/
 	}
 
-	public void traverse(ArrayList<Activity> list, String path) {
+	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
-			if (list.get(i).successors.size()>0)
-				traverse(list.get(i).successors, npath);
+			int niterations = iterations + 1;
+			int ndur = dur + list.get(i).duration;
+			if (niterations > activities.size()) {
+				System.out.println(false);
+				return false;	
+			}
+			if (list.get(i).successors.size()>0) {
+				traverse(list.get(i).successors, npath, ndur, niterations);
+			}
 			else {
 				paths.add(npath);
+				pathlength.add(ndur);
 			}
 		}
+		return true;
 	}
 
-	public void calculatePaths() {
+	public boolean calculatePaths() {
 		String path = "";
+		int dur = 0;
+		int iterations = 0;
+		boolean successful;
+		if (first.size() <= 0) {
+			System.out.println(false);
+			return false;
+		}
 		for (int i = 0; i < first.size(); i++) {
 			path = first.get(i).name + ": " + first.get(i).duration + "; ";
-			traverse(first.get(i).successors, path);		
+			dur += first.get(i).duration;
+			iterations++;
+			successful = traverse(first.get(i).successors, path, dur, iterations);
+			if (!successful)
+				return successful;
 		}
+		return true;
 	}
 
 	public String getPaths() {
 		String pathList = "";
-		calculatePaths();
-		for (int i = 0; i < paths.size(); i++) {
-			pathList = pathList + paths.get(i) + "\n\n\n\n"; 
+		boolean successful = calculatePaths();
+		if (successful) {
+			sort(pathlength);
+			for (int i = 0; i < paths.size(); i++) {
+				int j = pathlength.indexOf(pathlengthSorted.get(paths.size()-1-i));
+				pathList = pathList + paths.get(j) + "\n" + "Duration: " + pathlength.get(j) + "\n\n\n\n"; 
+			}
+			System.out.println(pathList);
+			return pathList;
 		}
-		System.out.println(pathList);
-		return pathList;
+		else {
+			deleteLinkedList();
+			return "Circular Path";
+		}
 	}
 
 	public boolean deleteLinkedList() {
