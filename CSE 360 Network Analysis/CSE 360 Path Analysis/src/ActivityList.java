@@ -149,6 +149,17 @@ public class ActivityList {
 
 		System.out.println("\n\n\n\n\n\n");
 	}
+	public boolean Circular(ArrayList<Activity> list){
 
+for(int i=0;i<list.size();i++){// return true, if there is a duplicate
+	for(int j=i+1;j<list.size();j++){
+		if(list.get(i).name.equals(list.get(j).name)){
+			return true;
+		}
+	}
+}
+return false;
+
+}
 
 }
