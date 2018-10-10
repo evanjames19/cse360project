@@ -13,11 +13,13 @@ public class ActivityList {
 	private ArrayList<Activity> first;
 	private ArrayList<Activity> activities;
 	private ArrayList<String> paths;
+	private ArrayList<Integer> pathlength;
 
 	public ActivityList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
 		paths = new ArrayList<String>();
+		pathlength = new ArrayList<Integer>();
 	}
 
 	public ArrayList<Activity> getFirst() { // returns ArrayList of first nodes
