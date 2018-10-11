@@ -21,8 +21,7 @@ public class ActivityList {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
 		paths = new ArrayList<String>();
-		pathlength = new ArrayList<Integer>();
-		
+		pathlength = new ArrayList<Integer>();		
 	}
 
 	public ArrayList<Activity> getFirst() { // returns ArrayList of first nodes
@@ -58,6 +57,7 @@ public class ActivityList {
 			newActivity = new Activity();
 			newActivity.predecessors = new ArrayList<Activity>();
 			newActivity.successors = new ArrayList<Activity>();
+			activities.add(newActivity);
 		}
 		newActivity.name = name;
 		newActivity.duration = duration;
@@ -78,7 +78,7 @@ public class ActivityList {
 				activities.add(prev);
 			}
 		}
-		activities.add(newActivity);
+		System.out.println(activities.size());
 	}
 
 	public Activity getActivity(String name) {
@@ -101,15 +101,19 @@ public class ActivityList {
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		int ndur = 0;
 		for (int i = 0; i < list.size(); i++) {
-			String npath = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
+			String npath = path + list.get(i).name + ": " + list.get(i).duration;
 			int niterations = iterations + 1;
-			 ndur = dur + list.get(i).duration;
+			ndur = dur + list.get(i).duration;
+			System.out.println(activities.size());
 			if (niterations > activities.size()) {
 				System.out.println(false);
-				return false;	
+				return false;
 			}
-			if (list.get(i).successors.size()>0) {
-				traverse(list.get(i).successors, npath, ndur, niterations);
+			if (list.get(i).successors.size() > 0) {
+				//for (int j = 0; j < list.get(i).successors.size(); j++) {
+					npath += " --> ";
+					traverse(list.get(i).successors, npath, ndur, niterations);
+				//}
 			}
 			else {
 				paths.add(npath);
@@ -124,16 +128,15 @@ public class ActivityList {
 		int dur = 0;
 		int iterations = 0;
 		boolean successful;
-		if (first.size() <= 0) {
-			System.out.println(false);
-			return "Circular Path";
-		}
+		if (first.size() > 1)
+			return "1 or more nodes not connected";
 		for (int i = 0; i < first.size(); i++) {
-			path = first.get(i).name + ": " + first.get(i).duration + "; ";
+			path = first.get(i).name + ": " + first.get(i).duration;
 			dur += first.get(i).duration;
 			iterations++;
-			if (first.get(i).successors.size() <= 0)
-				return "1 or more nodes not connected";
+			/*if (first.get(i).successors.size() <= 0)
+				return "1 or more nodes not connected";*/
+			path += " --> ";
 			successful = traverse(first.get(i).successors, path, dur, iterations);
 			if (!successful)
 				return "Circular Path";
@@ -145,9 +148,18 @@ public class ActivityList {
 		String pathList = "";
 		String successful = calculatePaths();
 		if (successful.equals("Success")) {
+			if (pathlength.size() < 1)
+				return "Circular Path";
 			sort(pathlength);
+			ArrayList<Integer> pathlengthcopy = new ArrayList<Integer>();
+			for (int i = 0; i < pathlength.size(); i++) {
+				pathlengthcopy.add(pathlength.get(i));
+			}
 			for (int i = 0; i < paths.size(); i++) {
-				int j = pathlength.indexOf(pathlengthSorted.get(paths.size()-1-i));
+				int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
+				pathlengthcopy.set(j, -1);
+				System.out.println(pathlengthcopy);
+				System.out.println(j);
 				pathList = pathList + paths.get(j) + "\n" + "Duration: " + pathlength.get(j) + "\n\n\n\n"; 
 			}
 			System.out.println(pathList);
@@ -166,7 +178,7 @@ public class ActivityList {
 		}
 		Collections.sort(pathlengthSorted);
 	}
-	
+
 	public boolean deleteLinkedList() {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
@@ -197,15 +209,15 @@ public class ActivityList {
 	}
 	public boolean Circular(ArrayList<Activity> list){
 
-for(int i=0;i<list.size();i++){// return true, if there is a duplicate
-	for(int j=i+1;j<list.size();j++){
-		if(list.get(i).name.equals(list.get(j).name)){
-			return true;
+		for(int i=0;i<list.size();i++){// return true, if there is a duplicate
+			for(int j=i+1;j<list.size();j++){
+				if(list.get(i).name.equals(list.get(j).name)){
+					return true;
+				}
+			}
 		}
-	}
-}
-return false;
+		return false;
 
-}
+	}
 
 }

@@ -44,9 +44,9 @@ public class InterfacePanels extends JPanel {
 	GridBagConstraints aboutConstraints = new GridBagConstraints();			// for organizing About panel
 	GridBagConstraints helpConstraints = new GridBagConstraints();			// for organizing Help panel
 
-
 	public InterfacePanels() {
 		ActivityList list = new ActivityList();
+		setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		JPanel panelsContainer = new JPanel();				// contains ALL panels****
 		JPanel mainPanel = new JPanel();					// contains home page
 		JPanel helpPanel = new JPanel();					// contains help page
