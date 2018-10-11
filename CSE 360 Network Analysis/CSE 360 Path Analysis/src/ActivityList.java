@@ -99,10 +99,11 @@ public class ActivityList {
 	}
 
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
+		int ndur = 0;
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + "\n" + list.get(i).name + ": " + list.get(i).duration + "; ";
 			int niterations = iterations + 1;
-			int ndur = dur + list.get(i).duration;
+			 ndur = dur + list.get(i).duration;
 			if (niterations > activities.size()) {
 				System.out.println(false);
 				return false;	
@@ -170,6 +171,7 @@ public class ActivityList {
 		first = new ArrayList<Activity>();
 		activities = new ArrayList<Activity>();
 		paths = new ArrayList<String>();
+		pathlength = new ArrayList<Integer>();
 		return (first.size() == 0 && activities.size() == 0);
 	}
 

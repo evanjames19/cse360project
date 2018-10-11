@@ -389,7 +389,8 @@ public class InterfacePanels extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
-				list.deleteLinkedList();
+				list.deleteLinkedList();				
+				ActivityList list = new ActivityList();
 				pathDisplayField.setText(null);
 				list.printAll();
 			}
@@ -403,6 +404,7 @@ public class InterfacePanels extends JPanel {
 
 				// Refresh data/restart stuff HERE
 				list.deleteLinkedList();
+				ActivityList list = new ActivityList();
 				pathDisplayField.setText(null);
 				list.printAll();
 			}
