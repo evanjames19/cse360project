@@ -14,6 +14,7 @@ public class InterfacePanels extends JPanel {
 	private JLabel durationLabel;
 	private JLabel predecessorLabel;
 	private JLabel fileNameLabel;
+	private JLabel criticalPathLabel;
 
 	// names for the windows
 	private JLabel helpWindowName;
@@ -47,6 +48,8 @@ public class InterfacePanels extends JPanel {
 	private JTextArea programProcessField;						// will show error messages, and whether activity addition was successful
 
 	private JTextArea pathDisplayField;							// will show path/activities organized
+	
+	private JCheckBox displayCriticalPathBox;					// check box for user to choose to show critical path
 
 	GridBagConstraints mainConstraints = new GridBagConstraints();
 
@@ -184,11 +187,21 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.fill = GridBagConstraints.VERTICAL;
 		mainPanel.add(programProcessField, mainConstraints);
 		
-		mainCreateReportButton = new JButton("Create Report");			// NEW
-		mainCreateReportButton.setBackground(new Color(220, 220, 220));
+		displayCriticalPathBox = new JCheckBox("Show Critical Path?");					// critical path check box
 		mainConstraints.gridx = 10;
 		mainConstraints.gridy = 8;
-		mainConstraints.gridwidth = 10;
+		mainConstraints.gridwidth = 5;
+		mainConstraints.gridheight = 1;
+		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
+		mainConstraints.fill = GridBagConstraints.VERTICAL;
+		mainPanel.add(displayCriticalPathBox, mainConstraints);
+		
+		
+		mainCreateReportButton = new JButton("Create Report");			// NEW
+		mainCreateReportButton.setBackground(new Color(220, 220, 220));
+		mainConstraints.gridx = 15;
+		mainConstraints.gridy = 8;
+		mainConstraints.gridwidth = 5;
 		mainConstraints.gridheight = 1;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainConstraints.fill = GridBagConstraints.VERTICAL;
@@ -493,6 +506,16 @@ public class InterfacePanels extends JPanel {
 						t.start();
 
 					}*/
+				
+				// FOR CHECKBOX USE: 
+				//							displayCriticalPathBox.isSelected()
+				
+				// example IF statement, Abrar added:
+				if(displayCriticalPathBox.isSelected()) {
+					//TEST
+					System.out.println("checkbox was selected");
+					// show critical path functions...
+				}
 
 				String pathList = list.getPaths();
 				pathDisplayField.setText((pathList));
