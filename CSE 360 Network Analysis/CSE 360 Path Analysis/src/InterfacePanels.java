@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.Timer;
 
 
@@ -11,10 +13,12 @@ public class InterfacePanels extends JPanel {
 	private JLabel activityNamesLabel;
 	private JLabel durationLabel;
 	private JLabel predecessorLabel;
+	private JLabel fileNameLabel;
 
 	// names for the windows
 	private JLabel helpWindowName;
 	private JLabel aboutWindowName;
+	private JLabel reportWindowName;							// new*
 
 	private JButton compileButton;								// takes user to displayPath panel
 	private JButton mainRestartButton;							// restart button for home page, refreshes data
@@ -24,12 +28,17 @@ public class InterfacePanels extends JPanel {
 	private JButton helpButton;									// takes user to help page/panel
 	private JButton aboutToHomeButton;							// located on the about panel, takes user back to home page
 	private JButton helpToHomeButton;							// located on the help panel, takes user back to home page
+	private JButton reportToHomeButton;							// located on the report panel, takes user to home page
 	private JButton exitButton;									// takes user to exit the program
-
+	
+	private JButton mainCreateReportButton;						// will take user to page where user can enter a title for report and create
+																// a report(text) file*
+	private JButton createReportButton;							// creates report
 
 	private JTextField activityNameField;						// user will enter name here
 	private JTextField durationField;							// user will enter duration here
-	private JTextField predecessorField;							// will be used to select predecessors from previous activities user entered
+	private JTextField predecessorField;						// will be used to enter predecessors from previous activities user entered
+	private JTextField reportTitleField;						// user will enter the report file's(text file) title here
 
 	private JTextArea aboutField;								// will be on about window (non-editable for user)
 
@@ -43,6 +52,7 @@ public class InterfacePanels extends JPanel {
 
 	GridBagConstraints aboutConstraints = new GridBagConstraints();			// for organizing About panel
 	GridBagConstraints helpConstraints = new GridBagConstraints();			// for organizing Help panel
+	GridBagConstraints reportConstraints = new GridBagConstraints();		// for organizing report panel
 
 	public InterfacePanels() {
 		ActivityList list = new ActivityList();
@@ -52,6 +62,7 @@ public class InterfacePanels extends JPanel {
 		JPanel helpPanel = new JPanel();					// contains help page
 		JPanel aboutPanel = new JPanel();					// contains about page
 		JPanel pathDisplayPanel = new JPanel();				// contains window where path will be shown to user
+		JPanel reportPanel = new JPanel();					// contains report panel
 
 		CardLayout interfacePanel = new CardLayout();		// card layout to switch between JPanels
 
@@ -65,8 +76,6 @@ public class InterfacePanels extends JPanel {
 
 		// LABELS
 		// 2nd quadrant of home page ("mainPanel")
-
-
 
 		activityNamesLabel = new JLabel("Activity Name");
 		mainConstraints.gridx = 0;
@@ -174,6 +183,16 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainConstraints.fill = GridBagConstraints.VERTICAL;
 		mainPanel.add(programProcessField, mainConstraints);
+		
+		mainCreateReportButton = new JButton("Create Report");			// NEW
+		mainCreateReportButton.setBackground(new Color(220, 220, 220));
+		mainConstraints.gridx = 10;
+		mainConstraints.gridy = 8;
+		mainConstraints.gridwidth = 10;
+		mainConstraints.gridheight = 1;
+		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
+		mainConstraints.fill = GridBagConstraints.VERTICAL;
+		mainPanel.add(mainCreateReportButton, mainConstraints);
 
 
 
@@ -260,18 +279,120 @@ public class InterfacePanels extends JPanel {
 
 		pathDisplayPanel.add(pathDisplayField, BorderLayout.CENTER);
 		pathDisplayPanel.add(displayRestartButton, BorderLayout.SOUTH);
+		
+		
+		//REPORT PANEL------------------------------------------------------------------------------------------------------
+		
+		reportPanel.setLayout(new GridBagLayout());
+		
+		reportConstraints.insets = new Insets(10, 10, 10, 10);
+		
+		reportToHomeButton = new JButton("Home");
+		reportConstraints.gridx = 0;
+		reportConstraints.gridy = 0;
+		reportConstraints.gridwidth = 5;
+		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
+		reportPanel.add(reportToHomeButton, reportConstraints);
+		
+		reportWindowName = new JLabel("Report File Name");
+		reportConstraints.gridx = 0;
+		reportConstraints.gridy = 1;
+		reportConstraints.gridwidth = 5;
+		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
+		reportPanel.add(reportWindowName, reportConstraints);
+		
+		reportTitleField = new JTextField(30);
+		reportConstraints.gridx = 5;
+		reportConstraints.gridy = 1;
+		reportConstraints.gridwidth = 15;
+		reportConstraints.gridheight = 1;
+		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
+		reportConstraints.fill = GridBagConstraints.VERTICAL;
+		reportPanel.add(reportTitleField, reportConstraints);
+
+		createReportButton = new JButton("Create Report");
+		reportConstraints.gridx = 5;
+		reportConstraints.gridy = 3;
+		reportConstraints.gridwidth = 15;
+		reportConstraints.gridheight = 1;
+		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
+		reportConstraints.fill = GridBagConstraints.VERTICAL;
+		reportPanel.add(createReportButton, reportConstraints);
+		
+
+		
+		
+		
+		
 
 
+		//------------------------------------------------------------------------------------------------------------------
+		
 		// ADDING PANELS TO CARDLAYOUT MANAGER
 		panelsContainer.add(mainPanel, "Home");
 		panelsContainer.add(helpPanel, "Help");
 		panelsContainer.add(aboutPanel, "About");
 		panelsContainer.add(pathDisplayPanel, "Path");
+		panelsContainer.add(reportPanel, "Report");
 
 		interfacePanel.show(panelsContainer, "Home");
 
 		//ACTION LISTENERS--------------------------------------------------------------------------------------------------
 
+		
+		mainCreateReportButton.addActionListener(new ActionListener() {			// home page report button action listener
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				interfacePanel.show(panelsContainer, "Report");				// takes user to "Report" panel, (report page)
+
+			}
+
+		});
+		
+		reportToHomeButton.addActionListener(new ActionListener() {			// report to home page button action listener
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				interfacePanel.show(panelsContainer, "Home");				// takes user to "Home" panel, (report page)
+
+			}
+
+		});
+		
+		createReportButton.addActionListener(new ActionListener() {			// create report button action listener
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				String reportTitle = reportTitleField.getText();
+				String reportStatus;
+				try {
+					
+					reportStatus = list.createReport(reportTitle);
+					programProcessField.setText(reportStatus);					// tells user whether user created file and its name
+					
+				} catch (IOException e) {
+					
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+				
+				
+				
+				// stuff here on making file
+				
+				
+				interfacePanel.show(panelsContainer, "Home");				// takes user to "Home" panel, (report page)
+
+			}
+
+		});
+		
+		
 		aboutButton.addActionListener(new ActionListener() {			// about button action listener
 
 			@Override
@@ -410,18 +531,6 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
-
-		/*predecessorField.addActionListener(new ActionListener() {			// 
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				//JCOMBOBOX STUFF HERE ABOUT CHOOSING PREDECESSOR
-
-			}
-
-		});			// add/accept another activity "add another" button
-		 */
 
 		exitButton.addActionListener(new ActionListener() {	
 

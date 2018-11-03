@@ -1,5 +1,12 @@
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class ActivityList {
@@ -219,5 +226,79 @@ public class ActivityList {
 		return false;
 
 	}
+	
+	// This function creates a report file (.txt) with user specified name and will output a status text on whether file creation was successful
+	public String createReport(String title) throws IOException {				
+		
+		String status;											// status will relay whether or not file creation was successful
+		String fileName = title + ".txt";						// creates a string which will hold the whole file name
+		
+		boolean hasInvalidChar = false;							
+		
+		for (int i = 0; i < title.length() && hasInvalidChar == false; i++) {		// loops until invalid char found or until whole string is analyzed
+			
+			char c = title.charAt(i);
+			if (c == '?' || c == '<' || c == '>' || c == '|' || c == '/') {
+				
+				hasInvalidChar = true;												// found an invalid character being used for file name
+				
+			}
+		}
+		
+		if (hasInvalidChar == true) {												// runs only if no invalid characters were found
+			
+			status = "Could not create " + title + ".txt, there is/are a invalid character/s in file name \n";
+			
+		} else {
+			
+			File file = new File(fileName);						// creates text file with title given by var fileName and file object
+			FileWriter fw = new FileWriter(file);
+			PrintWriter pw = new PrintWriter(file);				// this object (pw) is used to write to file
+																// TO SEE IF FILE WAS CREATED, REFRESH PROJECT on package explorer and the 
+																// new .txt file should show up
+																
+			pw.println("Report Title: " + fileName + "\n");
+			Date date = new Date();
+			pw.println("Created on: " + date.toString() + "\n");
+			pw.print("Activities: ");
+			
+			List<String> activityNames = new ArrayList();									// this arrayList of string will hold the activity names
+			
+			for (int i = 0; i < activities.size(); i++) {									// loops through activities created and stores name in activityNames
+				activityNames.add(activities.get(i).name);
+			}
+			
+			Collections.sort(activityNames, String.CASE_INSENSITIVE_ORDER);							// orders the activity names alpha-numerically
+			
+			for (int i = 0; i < activities.size(); i++) {
+				if (i == activities.size() - 1) {
+					pw.print(activityNames.get(i));
+				} else {
+					pw.print(activityNames.get(i) + ", ");
+				}
+				
+			}
+			
+			pw.println("\n");
+			
+			//----------------------------------------printing out paths---------------------------------------------------------------
+			
+			pw.println("Paths:");
+			
+			String reportPaths = getPaths();
+			pw.print(reportPaths);
+			
+			
+			pw.close();																		// necessary for writing to file
+			
+			status = "Created: ";															// status string tell user creation successful
+			status += title + ".txt\n";
+			
+		}
+		
+		return status;
+		
+	}
+	
 
 }
