@@ -31,6 +31,8 @@ public class InterfacePanels extends JPanel {
 	private JButton helpToHomeButton;							// located on the help panel, takes user back to home page
 	private JButton reportToHomeButton;							// located on the report panel, takes user to home page
 	private JButton exitButton;									// takes user to exit the program
+	private JButton panelHomeButton;							// Takes user home after compiling 
+	private JButton viewPaths;									// Allows user to view paths from home screen after compile
 	
 	private JButton mainCreateReportButton;						// will take user to page where user can enter a title for report and create
 																// a report(text) file*
@@ -139,10 +141,17 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(helpButton, mainConstraints);
+		
+		viewPaths = new JButton("View Paths");
+		mainConstraints.gridx = 0;
+		mainConstraints.gridy = 8;
+		mainConstraints.gridwidth = 10;
+		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
+		mainPanel.add(viewPaths, mainConstraints);
 
 		exitButton = new JButton("Exit");
 		mainConstraints.gridx = 0;
-		mainConstraints.gridy = 8;
+		mainConstraints.gridy = 9;
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(exitButton, mainConstraints);
@@ -284,14 +293,32 @@ public class InterfacePanels extends JPanel {
 		//PATH DISPLAY PANEL------------------------------------------------------------------------------------------------
 
 
-		pathDisplayPanel.setLayout(new BorderLayout());
+		pathDisplayPanel.setLayout(new GridBagLayout());
 
+		GridBagConstraints c = new GridBagConstraints();  
+
+		panelHomeButton =  new JButton("Home");
+		c.gridx = 1;
+		c.gridy = 1;
+		
+		
+		pathDisplayPanel.add(panelHomeButton,c);
 
 		displayRestartButton = new JButton("Restart");
-		pathDisplayField = new JTextArea(20, 33);
+		c.gridx = 1;
+		c.gridy = 2;
+		
+		
+		pathDisplayPanel.add(displayRestartButton,c);
+		
+		pathDisplayField = new JTextArea(20, 50);
+		c.gridx = 1;
+		c.gridy = 0;
+		
+		
 
-		pathDisplayPanel.add(pathDisplayField, BorderLayout.CENTER);
-		pathDisplayPanel.add(displayRestartButton, BorderLayout.SOUTH);
+		pathDisplayPanel.add(pathDisplayField,c);
+		
 		
 		
 		//REPORT PANEL------------------------------------------------------------------------------------------------------
@@ -427,6 +454,17 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
+		
+		viewPaths.addActionListener(new ActionListener() {					// view paths button action listener
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				interfacePanel.show(panelsContainer, "Path");				// takes user to "Paths" panel
+
+			}
+
+		});
 
 
 		aboutToHomeButton.addActionListener(new ActionListener() {			// Home button for the ABOUT panel, action listener
@@ -524,6 +562,17 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
+		
+		panelHomeButton.addActionListener(new ActionListener() {
+			// takes user back to home screen, doesn't reset the lists
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+
+							interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
+						}
+		}
+		);
 
 		displayRestartButton.addActionListener(new ActionListener() {			// RESTART button action listener (from "Path" panel to "Home"panel/home page, 
 			// should refresh all data
