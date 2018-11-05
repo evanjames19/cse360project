@@ -104,6 +104,20 @@ public class ActivityList {
 		}
 		return null;*/
 	}
+	
+	public boolean changeDuration(String name, int duration) {
+		boolean x = false;
+		
+		for(int i =0; i < activities.size(); i++) {
+			if(activities.get(i).name.equals(name)) {
+				activities.get(i).duration = duration;
+				x = true;
+			}
+				
+		}
+		return x;
+		
+	}
 
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		int ndur = 0;

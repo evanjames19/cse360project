@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.Timer;
 
 
+
 public class InterfacePanels extends JPanel {
 
 	// labels for describing input
@@ -15,6 +16,8 @@ public class InterfacePanels extends JPanel {
 	private JLabel predecessorLabel;
 	private JLabel fileNameLabel;
 	private JLabel criticalPathLabel;
+	private JLabel activitychangelabel;
+	private JLabel durationchangelabel;
 
 	// names for the windows
 	private JLabel helpWindowName;
@@ -33,6 +36,9 @@ public class InterfacePanels extends JPanel {
 	private JButton exitButton;									// takes user to exit the program
 	private JButton panelHomeButton;							// Takes user home after compiling 
 	private JButton viewPaths;									// Allows user to view paths from home screen after compile
+	private JButton changeDuration;								// changes duration of specific activity
+	private JButton durationchangeButton;
+	private JButton durationtoHomeButton;
 	
 	private JButton mainCreateReportButton;						// will take user to page where user can enter a title for report and create
 																// a report(text) file*
@@ -42,6 +48,8 @@ public class InterfacePanels extends JPanel {
 	private JTextField durationField;							// user will enter duration here
 	private JTextField predecessorField;						// will be used to enter predecessors from previous activities user entered
 	private JTextField reportTitleField;						// user will enter the report file's(text file) title here
+	private JTextField activitychangeField;						// used for identifying the activity that will be changed
+	private JTextField newDurationField;						// used for changing the new duration of a activity
 
 	private JTextArea aboutField;								// will be on about window (non-editable for user)
 
@@ -58,6 +66,7 @@ public class InterfacePanels extends JPanel {
 	GridBagConstraints aboutConstraints = new GridBagConstraints();			// for organizing About panel
 	GridBagConstraints helpConstraints = new GridBagConstraints();			// for organizing Help panel
 	GridBagConstraints reportConstraints = new GridBagConstraints();		// for organizing report panel
+	GridBagConstraints changeConstraints = new GridBagConstraints();		// for organizing change duration panel
 
 	public InterfacePanels() {
 		ActivityList list = new ActivityList();
@@ -68,6 +77,7 @@ public class InterfacePanels extends JPanel {
 		JPanel aboutPanel = new JPanel();					// contains about page
 		JPanel pathDisplayPanel = new JPanel();				// contains window where path will be shown to user
 		JPanel reportPanel = new JPanel();					// contains report panel
+		JPanel durationChangePanel = new JPanel();			// contains new menu to change duration of specific activities
 
 		CardLayout interfacePanel = new CardLayout();		// card layout to switch between JPanels
 
@@ -148,10 +158,17 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(viewPaths, mainConstraints);
+		
+		changeDuration = new JButton("Change Duration");
+		mainConstraints.gridx = 0;
+		mainConstraints.gridy = 9;
+		mainConstraints.gridwidth = 10;
+		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
+		mainPanel.add(changeDuration, mainConstraints);
 
 		exitButton = new JButton("Exit");
 		mainConstraints.gridx = 0;
-		mainConstraints.gridy = 9;
+		mainConstraints.gridy = 10;
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(exitButton, mainConstraints);
@@ -319,7 +336,48 @@ public class InterfacePanels extends JPanel {
 
 		pathDisplayPanel.add(pathDisplayField,c);
 		
+		// DURATION	CHANGE PANEL
 		
+		durationChangePanel.setLayout(new GridBagLayout());
+		
+		activitychangelabel = new JLabel("Activity Name");
+		changeConstraints.gridx = 0;
+		changeConstraints.gridy = 0;
+		
+		durationChangePanel.add(activitychangelabel,changeConstraints);
+		
+		durationchangelabel = new JLabel("New Duration");
+		changeConstraints.gridx = 0;
+		changeConstraints.gridy = 1;
+		
+		durationChangePanel.add(durationchangelabel,changeConstraints);
+
+		
+		activitychangeField = new JTextField(30);
+		changeConstraints.gridx = 1;
+		changeConstraints.gridy = 0;
+
+		durationChangePanel.add(activitychangeField,changeConstraints);
+		
+		newDurationField = new JTextField(30);
+		changeConstraints.gridx = 1;
+		changeConstraints.gridy = 1;
+
+		durationChangePanel.add(newDurationField,changeConstraints);
+		
+		durationchangeButton = new JButton("Change Duration");
+		changeConstraints.gridx = 3;
+		changeConstraints.gridy = 1;
+
+		durationChangePanel.add(durationchangeButton,changeConstraints);
+		
+		durationtoHomeButton = new JButton("Home");
+		changeConstraints.gridx = 3;
+		changeConstraints.gridy = 0;
+
+		durationChangePanel.add(durationtoHomeButton,changeConstraints);
+		
+
 		
 		//REPORT PANEL------------------------------------------------------------------------------------------------------
 		
@@ -374,6 +432,7 @@ public class InterfacePanels extends JPanel {
 		panelsContainer.add(aboutPanel, "About");
 		panelsContainer.add(pathDisplayPanel, "Path");
 		panelsContainer.add(reportPanel, "Report");
+		panelsContainer.add(durationChangePanel, "Duration");
 
 		interfacePanel.show(panelsContainer, "Home");
 
@@ -431,6 +490,57 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
+		
+		durationchangeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ActionListener taskPerformer = new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						activitychangeField.setText("");
+						newDurationField.setText("");
+						newDurationField.setForeground(Color.BLACK);
+						activitychangeField.setForeground(Color.BLACK);
+
+
+					}
+				};
+				
+				int errordelay = 1500;
+				
+
+				String activityName = activitychangeField.getText();
+				String newDuration = newDurationField.getText();
+				
+				int d = Integer.parseInt(newDuration);
+				
+				if(list.getActivity(activityName) != null)
+				{
+					list.changeDuration(activityName, d);
+					activitychangeField.setText(null);
+					newDurationField.setText(null);
+					pathDisplayField.setText(null);
+					String pathList = list.getPaths();
+					pathDisplayField.setText((pathList));
+					
+					
+				}
+				else {
+					newDurationField.setText("");
+					activitychangeField.setText(activityName + " is not in your path");
+					activitychangeField.setForeground(Color.RED);
+					
+					Timer t = new Timer(errordelay, taskPerformer);
+					t.setRepeats(false);
+					t.start();
+
+				}
+				
+			}
+			
+				
+				
+		}	);
 		
 		
 		aboutButton.addActionListener(new ActionListener() {			// about button action listener
@@ -573,6 +683,17 @@ public class InterfacePanels extends JPanel {
 						}
 		}
 		);
+		
+		changeDuration.addActionListener(new ActionListener() {
+			// takes user back to home screen, doesn't reset the lists
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+
+							interfacePanel.show(panelsContainer, "Duration");			// takes user to duration container
+						}
+		}
+		);
 
 		displayRestartButton.addActionListener(new ActionListener() {			// RESTART button action listener (from "Path" panel to "Home"panel/home page, 
 			// should refresh all data
@@ -610,6 +731,16 @@ public class InterfacePanels extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				System.exit(0);
+			}
+		});
+		
+		durationtoHomeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
+
 			}
 		});
 
