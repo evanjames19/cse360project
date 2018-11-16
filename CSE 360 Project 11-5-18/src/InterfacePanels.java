@@ -39,9 +39,9 @@ public class InterfacePanels extends JPanel {
 	private JButton changeDuration;								// changes duration of specific activity
 	private JButton durationchangeButton;
 	private JButton durationtoHomeButton;
-	
+
 	private JButton mainCreateReportButton;						// will take user to page where user can enter a title for report and create
-																// a report(text) file*
+	// a report(text) file*
 	private JButton createReportButton;							// creates report
 
 	private JTextField activityNameField;						// user will enter name here
@@ -58,7 +58,7 @@ public class InterfacePanels extends JPanel {
 	private JTextArea programProcessField;						// will show error messages, and whether activity addition was successful
 
 	private JTextArea pathDisplayField;							// will show path/activities organized
-	
+
 	private JCheckBox displayCriticalPathBox;					// check box for user to choose to show critical path
 
 	GridBagConstraints mainConstraints = new GridBagConstraints();
@@ -151,14 +151,14 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(helpButton, mainConstraints);
-		
+
 		viewPaths = new JButton("View Paths");
 		mainConstraints.gridx = 0;
 		mainConstraints.gridy = 8;
 		mainConstraints.gridwidth = 10;
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainPanel.add(viewPaths, mainConstraints);
-		
+
 		changeDuration = new JButton("Change Duration");
 		mainConstraints.gridx = 0;
 		mainConstraints.gridy = 9;
@@ -212,7 +212,7 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainConstraints.fill = GridBagConstraints.VERTICAL;
 		mainPanel.add(programProcessField, mainConstraints);
-		
+
 		displayCriticalPathBox = new JCheckBox("Show Critical Path?");					// critical path check box
 		mainConstraints.gridx = 10;
 		mainConstraints.gridy = 8;
@@ -221,8 +221,8 @@ public class InterfacePanels extends JPanel {
 		mainConstraints.fill = GridBagConstraints.HORIZONTAL;
 		mainConstraints.fill = GridBagConstraints.VERTICAL;
 		mainPanel.add(displayCriticalPathBox, mainConstraints);
-		
-		
+
+
 		mainCreateReportButton = new JButton("Create Report");			// NEW
 		mainCreateReportButton.setBackground(new Color(220, 220, 220));
 		mainConstraints.gridx = 15;
@@ -238,24 +238,24 @@ public class InterfacePanels extends JPanel {
 
 		//ABOUT PANEL----------------------------------------------------------------------------------------------------
 		aboutPanel.setLayout(new GridBagLayout());
-		
+
 		aboutConstraints.insets = new Insets(10, 10, 10, 10);
-		
+
 		aboutToHomeButton = new JButton("Home");
 		aboutConstraints.gridx = 0;
 		aboutConstraints.gridy = 0;
 		aboutConstraints.gridwidth = 5;
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutPanel.add(aboutToHomeButton, aboutConstraints);
-		
+
 		aboutWindowName = new JLabel("	    ABOUT");
 		aboutConstraints.gridx = 0;
 		aboutConstraints.gridy = 1;
 		aboutConstraints.gridwidth = 5;
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutPanel.add(aboutWindowName, aboutConstraints);
-	
-		
+
+
 		aboutField = new JTextArea(20, 33);
 		//ENTER "ABOUT" TEXT HERE
 		String aboutText = "This program, Network Path Analysis, was created by Abrar, Abe, Shuchi, and Evan.\n "
@@ -271,26 +271,26 @@ public class InterfacePanels extends JPanel {
 		aboutConstraints.fill = GridBagConstraints.HORIZONTAL;
 		aboutConstraints.fill = GridBagConstraints.VERTICAL;
 		aboutPanel.add(aboutField, aboutConstraints);
-		
+
 		//HELP PANEL-------------------------------------------------------------------------------------------------------
 		helpPanel.setLayout(new GridBagLayout());
-		
+
 		helpConstraints.insets = new Insets(10, 10, 10, 10);
-		
+
 		helpToHomeButton = new JButton("Home");
 		helpConstraints.gridx = 0;
 		helpConstraints.gridy = 0;
 		helpConstraints.gridwidth = 5;
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpPanel.add(helpToHomeButton, helpConstraints);
-		
+
 		helpWindowName = new JLabel("     HELP");
 		helpConstraints.gridx = 0;
 		helpConstraints.gridy = 1;
 		helpConstraints.gridwidth = 5;
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpPanel.add(helpWindowName, helpConstraints);
-		
+
 		helpField = new JTextArea(20, 33);
 		//ENTER "HELP" TEXT HERE
 		String helpText = "For the Activity Name field, enter a name for the activity.\n"
@@ -306,7 +306,7 @@ public class InterfacePanels extends JPanel {
 		helpConstraints.fill = GridBagConstraints.HORIZONTAL;
 		helpConstraints.fill = GridBagConstraints.VERTICAL;
 		helpPanel.add(helpField, helpConstraints);
-		
+
 		//PATH DISPLAY PANEL------------------------------------------------------------------------------------------------
 
 
@@ -317,88 +317,88 @@ public class InterfacePanels extends JPanel {
 		panelHomeButton =  new JButton("Home");
 		c.gridx = 1;
 		c.gridy = 1;
-		
-		
+
+
 		pathDisplayPanel.add(panelHomeButton,c);
 
 		displayRestartButton = new JButton("Restart");
 		c.gridx = 1;
 		c.gridy = 2;
-		
-		
+
+
 		pathDisplayPanel.add(displayRestartButton,c);
-		
+
 		pathDisplayField = new JTextArea(20, 50);
 		c.gridx = 1;
 		c.gridy = 0;
-		
-		
+
+
 
 		pathDisplayPanel.add(pathDisplayField,c);
-		
+
 		// DURATION	CHANGE PANEL
-		
+
 		durationChangePanel.setLayout(new GridBagLayout());
-		
+
 		activitychangelabel = new JLabel("Activity Name");
 		changeConstraints.gridx = 0;
 		changeConstraints.gridy = 0;
-		
+
 		durationChangePanel.add(activitychangelabel,changeConstraints);
-		
+
 		durationchangelabel = new JLabel("New Duration");
 		changeConstraints.gridx = 0;
 		changeConstraints.gridy = 1;
-		
+
 		durationChangePanel.add(durationchangelabel,changeConstraints);
 
-		
+
 		activitychangeField = new JTextField(30);
 		changeConstraints.gridx = 1;
 		changeConstraints.gridy = 0;
 
 		durationChangePanel.add(activitychangeField,changeConstraints);
-		
+
 		newDurationField = new JTextField(30);
 		changeConstraints.gridx = 1;
 		changeConstraints.gridy = 1;
 
 		durationChangePanel.add(newDurationField,changeConstraints);
-		
+
 		durationchangeButton = new JButton("Change Duration");
 		changeConstraints.gridx = 3;
 		changeConstraints.gridy = 1;
 
 		durationChangePanel.add(durationchangeButton,changeConstraints);
-		
+
 		durationtoHomeButton = new JButton("Home");
 		changeConstraints.gridx = 3;
 		changeConstraints.gridy = 0;
 
 		durationChangePanel.add(durationtoHomeButton,changeConstraints);
-		
 
-		
+
+
 		//REPORT PANEL------------------------------------------------------------------------------------------------------
-		
+
 		reportPanel.setLayout(new GridBagLayout());
-		
+
 		reportConstraints.insets = new Insets(10, 10, 10, 10);
-		
+
 		reportToHomeButton = new JButton("Home");
 		reportConstraints.gridx = 0;
 		reportConstraints.gridy = 0;
 		reportConstraints.gridwidth = 5;
 		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
 		reportPanel.add(reportToHomeButton, reportConstraints);
-		
+
 		reportWindowName = new JLabel("Report File Name");
 		reportConstraints.gridx = 0;
 		reportConstraints.gridy = 1;
 		reportConstraints.gridwidth = 5;
 		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
 		reportPanel.add(reportWindowName, reportConstraints);
-		
+
 		reportTitleField = new JTextField(30);
 		reportConstraints.gridx = 5;
 		reportConstraints.gridy = 1;
@@ -416,16 +416,16 @@ public class InterfacePanels extends JPanel {
 		reportConstraints.fill = GridBagConstraints.HORIZONTAL;
 		reportConstraints.fill = GridBagConstraints.VERTICAL;
 		reportPanel.add(createReportButton, reportConstraints);
-		
 
-		
-		
-		
-		
+
+
+
+
+
 
 
 		//------------------------------------------------------------------------------------------------------------------
-		
+
 		// ADDING PANELS TO CARDLAYOUT MANAGER
 		panelsContainer.add(mainPanel, "Home");
 		panelsContainer.add(helpPanel, "Help");
@@ -438,7 +438,7 @@ public class InterfacePanels extends JPanel {
 
 		//ACTION LISTENERS--------------------------------------------------------------------------------------------------
 
-		
+
 		mainCreateReportButton.addActionListener(new ActionListener() {			// home page report button action listener
 
 			@Override
@@ -449,7 +449,7 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
-		
+
 		reportToHomeButton.addActionListener(new ActionListener() {			// report to home page button action listener
 
 			@Override
@@ -460,7 +460,7 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
-		
+
 		createReportButton.addActionListener(new ActionListener() {			// create report button action listener
 
 			@Override
@@ -469,32 +469,45 @@ public class InterfacePanels extends JPanel {
 				String reportTitle = reportTitleField.getText();
 				String reportStatus;
 				try {
-					
-					reportStatus = list.createReport(reportTitle);
+					String pathList;
+					boolean critical;
+					if(displayCriticalPathBox.isSelected()) {
+						//TEST
+						System.out.println("checkbox was selected");
+						// show critical path functions...
+						critical = true;
+					}
+					else {
+						critical = false;
+					}
+					pathList = list.getPaths(critical);
+					pathDisplayField.setText((pathList));
+					interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+					reportStatus = list.createReport(reportTitle, critical);
 					programProcessField.setText(reportStatus);					// tells user whether user created file and its name
-					
+
 				} catch (IOException e) {
-					
+
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					
+
 				}
-				
-				
-				
+
+
+
 				// stuff here on making file
-				
-				
+
+
 				interfacePanel.show(panelsContainer, "Home");				// takes user to "Home" panel, (report page)
 
 			}
 
 		});
-		
+
 		durationchangeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				ActionListener taskPerformer = new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						activitychangeField.setText("");
@@ -505,44 +518,56 @@ public class InterfacePanels extends JPanel {
 
 					}
 				};
-				
+
 				int errordelay = 1500;
-				
+
 
 				String activityName = activitychangeField.getText();
 				String newDuration = newDurationField.getText();
-				
+
 				int d = Integer.parseInt(newDuration);
-				
+
 				if(list.getActivity(activityName) != null)
 				{
 					list.changeDuration(activityName, d);
 					activitychangeField.setText(null);
 					newDurationField.setText(null);
 					pathDisplayField.setText(null);
-					String pathList = list.getPaths();
+					String pathList;
+					boolean critical;
+					if(displayCriticalPathBox.isSelected()) {
+						//TEST
+						System.out.println("checkbox was selected");
+						// show critical path functions...
+						critical = true;
+					}
+					else {
+						critical = false;
+					}
+					pathList = list.getPaths(critical);
 					pathDisplayField.setText((pathList));
-					
-					
+					interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+
+
 				}
 				else {
 					newDurationField.setText("");
 					activitychangeField.setText(activityName + " is not in your path");
 					activitychangeField.setForeground(Color.RED);
-					
+
 					Timer t = new Timer(errordelay, taskPerformer);
 					t.setRepeats(false);
 					t.start();
 
 				}
-				
+
 			}
-			
-				
-				
+
+
+
 		}	);
-		
-		
+
+
 		aboutButton.addActionListener(new ActionListener() {			// about button action listener
 
 			@Override
@@ -564,7 +589,7 @@ public class InterfacePanels extends JPanel {
 			}
 
 		});
-		
+
 		viewPaths.addActionListener(new ActionListener() {					// view paths button action listener
 
 			@Override
@@ -604,96 +629,126 @@ public class InterfacePanels extends JPanel {
 			// else it should just print all the linked list nodes sorted in the decreasing duration
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				/*int errordelay = 1500; 		// sets a delay to 1.5s to give user a timed warning message
+				int errordelay = 1500; 		// sets a delay to 1.5s to give user a timed warning message
 
-					// used for the timer creation
-					ActionListener taskPerformer = new ActionListener() {
-					      public void actionPerformed(ActionEvent evt) {
-					    	durationField.setText("");
-							activityNameField.setText("");
-							durationField.setForeground(Color.BLACK);
-							activityNameField.setForeground(Color.BLACK);
+				// used for the timer creation
+				ActionListener taskPerformer = new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						durationField.setText("");
+						activityNameField.setText("");
+						durationField.setForeground(Color.BLACK);
+						activityNameField.setForeground(Color.BLACK);
 
 
-					      }
-					 };
-					 // checks if activity field is empty 
-				if(activityNameField.getText().equals("")) {
+					}
+				};
+				// checks if activity field is empty 
+				if (!activityNameField.getText().equals("") || 
+						!durationField.getText().equals("")) {
+					if(activityNameField.getText().equals("")) {
 
-							durationField.setText("");
-							activityNameField.setText("Please fill all required fields"); // prompts error
-							activityNameField.setForeground(Color.RED);
+						durationField.setText("");
+						activityNameField.setText("Please fill all required fields"); // prompts error
+						activityNameField.setForeground(Color.RED);
+
+						Timer t = new Timer(errordelay, taskPerformer);
+						t.setRepeats(false);
+						t.start(); // triggers message for 1.5s
+
+					}
+					else {
+
+						try {
+							String name = activityNameField.getText();
+							String duration = durationField.getText();
+							int dur = 0;
+							dur = Integer.parseInt(duration);
+							String pred = predecessorField.getText();
+							if (pred.equals("") || pred == null) {
+								list.addFirst(name, dur);
+							}
+							else {
+								list.add(name, dur, predecessorField.getText());
+							}	
+							list.printAll();
+							activityNameField.setText(null);
+							durationField.setText(null);
+							predecessorField.setText(null);
+
+							String pathList;
+							boolean critical;
+							if(displayCriticalPathBox.isSelected()) {
+								//TEST
+								System.out.println("checkbox was selected");
+								// show critical path functions...
+								critical = true;
+							}
+							else {
+								critical = false;
+							}
+							pathList = list.getPaths(critical);
+							pathDisplayField.setText((pathList));
+							interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+
+						}
+
+
+						catch (NumberFormatException e) {
+							durationField.setText("Please Enter a whole number!");
+							durationField.setForeground(Color.RED);
 
 							Timer t = new Timer(errordelay, taskPerformer);
 							t.setRepeats(false);
-							t.start(); // triggers message for 1.5s
+							t.start();
 
 						}
-				 else {
-
-					try { // try to catch Number format if the duration is not a whole number
-
-
-
-						String name = activityNameField.getText();
-						activityNameField.setText("");
-
-						int d = Integer.parseInt(durationField.getText());
-						durationField.setText("");
-						interfacePanel.show(panelsContainer, "Path"); // displays the path panel						
-
 					}
 
-
-					catch (NumberFormatException e) {
-						  durationField.setText("Please Enter a whole number!"); // prompts error
-						  durationField.setForeground(Color.RED);
-
-						Timer t = new Timer(errordelay, taskPerformer); // times for 1.5s
-						t.setRepeats(false);
-						t.start();
-
-					}*/
-				
-				// FOR CHECKBOX USE: 
-				//							displayCriticalPathBox.isSelected()
-				
-				// example IF statement, Abrar added:
-				if(displayCriticalPathBox.isSelected()) {
-					//TEST
-					System.out.println("checkbox was selected");
-					// show critical path functions...
 				}
+				else {
+					String pathList;
+					// FOR CHECKBOX USE: 
+					//							displayCriticalPathBox.isSelected()
 
-				String pathList = list.getPaths();
-				pathDisplayField.setText((pathList));
-				interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+					// example IF statement, Abrar added:
+					if(displayCriticalPathBox.isSelected()) {
+						//TEST
+						System.out.println("checkbox was selected");
+						// show critical path functions...
+						pathList = list.getPaths(true);
+					}
+					else {
+						pathList = list.getPaths(false);
+					}
+					pathDisplayField.setText((pathList));
+					interfacePanel.show(panelsContainer, "Path"); // displays the path panel
+				}
 
 			}
 
 		});
-		
+
 		panelHomeButton.addActionListener(new ActionListener() {
 			// takes user back to home screen, doesn't reset the lists
 
-						@Override
-						public void actionPerformed(ActionEvent arg0) {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 
-							interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
-						}
+				interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
+			}
 		}
-		);
-		
+				);
+
 		changeDuration.addActionListener(new ActionListener() {
 			// takes user back to home screen, doesn't reset the lists
 
-						@Override
-						public void actionPerformed(ActionEvent arg0) {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 
-							interfacePanel.show(panelsContainer, "Duration");			// takes user to duration container
-						}
+				interfacePanel.show(panelsContainer, "Duration");			// takes user to duration container
+			}
 		}
-		);
+				);
 
 		displayRestartButton.addActionListener(new ActionListener() {			// RESTART button action listener (from "Path" panel to "Home"panel/home page, 
 			// should refresh all data
@@ -733,12 +788,12 @@ public class InterfacePanels extends JPanel {
 				System.exit(0);
 			}
 		});
-		
+
 		durationtoHomeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				interfacePanel.show(panelsContainer, "Home");			// takes it to "Path" panel/window which shows the user the activities/paths
 
 			}

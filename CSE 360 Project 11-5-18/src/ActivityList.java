@@ -104,19 +104,19 @@ public class ActivityList {
 		}
 		return null;*/
 	}
-	
+
 	public boolean changeDuration(String name, int duration) {
 		boolean x = false;
-		
+
 		for(int i =0; i < activities.size(); i++) {
 			if(activities.get(i).name.equals(name)) {
 				activities.get(i).duration = duration;
 				x = true;
 			}
-				
+
 		}
 		return x;
-		
+
 	}
 
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
@@ -132,8 +132,8 @@ public class ActivityList {
 			}
 			if (list.get(i).successors.size() > 0) {
 				//for (int j = 0; j < list.get(i).successors.size(); j++) {
-					npath += " --> ";
-					traverse(list.get(i).successors, npath, ndur, niterations);
+				npath += " --> ";
+				traverse(list.get(i).successors, npath, ndur, niterations);
 				//}
 			}
 			else {
@@ -165,8 +165,10 @@ public class ActivityList {
 		return "Success";
 	}
 
-	public String getPaths() {
+	public String getPaths(boolean critical) {
 		String pathList = "";
+		pathlength = new ArrayList<Integer>();
+		paths = new ArrayList<String>();
 		String successful = calculatePaths();
 		if (successful.equals("Success")) {
 			if (pathlength.size() < 1)
@@ -176,12 +178,29 @@ public class ActivityList {
 			for (int i = 0; i < pathlength.size(); i++) {
 				pathlengthcopy.add(pathlength.get(i));
 			}
-			for (int i = 0; i < paths.size(); i++) {
-				int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
-				pathlengthcopy.set(j, -1);
-				System.out.println(pathlengthcopy);
-				System.out.println(j);
-				pathList = pathList + paths.get(j) + "\n" + "Duration: " + pathlength.get(j) + "\n\n\n\n"; 
+			if (critical) {
+				int clength = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1));
+				for (int i = 0; i < paths.size(); i++) {
+					int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
+					if (j == clength) {
+						pathlengthcopy.set(j, -1);
+						System.out.println(pathlengthcopy);
+						System.out.println(j);
+						pathList = pathList + paths.get(j) + "\n" + "Critical Path Duration: " + pathlength.get(j) + "\n\n\n\n"; 
+					}
+					else {
+						i = paths.size();
+					}
+				}
+			}  
+			else {
+				for (int i = 0; i < paths.size(); i++) {
+					int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
+					pathlengthcopy.set(j, -1);
+					System.out.println(pathlengthcopy);
+					System.out.println(j);
+					pathList = pathList + paths.get(j) + "\n" + "Duration: " + pathlength.get(j) + "\n\n\n\n"; 
+				}
 			}
 			System.out.println(pathList);
 			return pathList;
@@ -240,79 +259,79 @@ public class ActivityList {
 		return false;
 
 	}
-	
+
 	// This function creates a report file (.txt) with user specified name and will output a status text on whether file creation was successful
-	public String createReport(String title) throws IOException {				
-		
+	public String createReport(String title, boolean critical) throws IOException {				
+
 		String status;											// status will relay whether or not file creation was successful
 		String fileName = title + ".txt";						// creates a string which will hold the whole file name
-		
+
 		boolean hasInvalidChar = false;							
-		
+
 		for (int i = 0; i < title.length() && hasInvalidChar == false; i++) {		// loops until invalid char found or until whole string is analyzed
-			
+
 			char c = title.charAt(i);
 			if (c == '?' || c == '<' || c == '>' || c == '|' || c == '/') {
-				
+
 				hasInvalidChar = true;												// found an invalid character being used for file name
-				
+
 			}
 		}
-		
+
 		if (hasInvalidChar == true) {												// runs only if no invalid characters were found
-			
+
 			status = "Could not create " + title + ".txt, there is/are a invalid character/s in file name \n";
-			
+
 		} else {
-			
+
 			File file = new File(fileName);						// creates text file with title given by var fileName and file object
 			FileWriter fw = new FileWriter(file);
 			PrintWriter pw = new PrintWriter(file);				// this object (pw) is used to write to file
-																// TO SEE IF FILE WAS CREATED, REFRESH PROJECT on package explorer and the 
-																// new .txt file should show up
-																
+			// TO SEE IF FILE WAS CREATED, REFRESH PROJECT on package explorer and the 
+			// new .txt file should show up
+
 			pw.println("Report Title: " + fileName + "\n");
 			Date date = new Date();
 			pw.println("Created on: " + date.toString() + "\n");
 			pw.print("Activities: ");
-			
+
 			List<String> activityNames = new ArrayList();									// this arrayList of string will hold the activity names
-			
+
 			for (int i = 0; i < activities.size(); i++) {									// loops through activities created and stores name in activityNames
 				activityNames.add(activities.get(i).name);
 			}
-			
+
 			Collections.sort(activityNames, String.CASE_INSENSITIVE_ORDER);							// orders the activity names alpha-numerically
-			
+
 			for (int i = 0; i < activities.size(); i++) {
 				if (i == activities.size() - 1) {
 					pw.print(activityNames.get(i));
 				} else {
 					pw.print(activityNames.get(i) + ", ");
 				}
-				
+
 			}
-			
+
 			pw.println("\n");
-			
+
 			//----------------------------------------printing out paths---------------------------------------------------------------
-			
+
 			pw.println("Paths:");
-			
-			String reportPaths = getPaths();
+
+			String reportPaths = getPaths(critical);
 			pw.print(reportPaths);
-			
-			
+
+
 			pw.close();																		// necessary for writing to file
-			
+
 			status = "Created: ";															// status string tell user creation successful
 			status += title + ".txt\n";
-			
+
 		}
-		
+
 		return status;
-		
+
 	}
-	
+
 
 }
