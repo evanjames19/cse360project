@@ -1,0 +1,27 @@
+Report Title: Test3.txt
+
+Created on: Mon Nov 19 13:14:38 MST 2018
+
+Activities: A, B, C, D, E
+
+Paths:
+A: 2 --> B: 3 --> D: 4 --> E: 10
+Duration: 19
+
+
+
+A: 2 --> C: 3 --> D: 4 --> E: 10
+Duration: 19
+
+
+
+A: 2 --> B: 3 --> E: 10
+Duration: 15
+
+
+
+A: 2 --> C: 3 --> E: 10
+Duration: 15
+
+
+
