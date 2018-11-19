@@ -140,6 +140,7 @@ public class ActivityList {
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				return true;
 			}
 		}
 		return working;
@@ -173,10 +174,8 @@ public class ActivityList {
 		String pathList = "";
 		pathlength = new ArrayList<Integer>();
 		paths = new ArrayList<String>();
-		if (activities.size() == 0)
-			return "Empty Network";
 		if (first.size() == 0)
-			return "Circular Path";
+			return "Empty Network";
 		String successful = calculatePaths();
 		if (successful.equals("Success")) {
 			sort(pathlength);

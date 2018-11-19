@@ -140,11 +140,12 @@ public class ActivityList {
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				return true;
 			}
 		}
 		return working;
 	}
-
+	
 	public String calculatePaths() {
 		String path = "";
 		int dur = 0;
@@ -173,10 +174,8 @@ public class ActivityList {
 		String pathList = "";
 		pathlength = new ArrayList<Integer>();
 		paths = new ArrayList<String>();
-		if (activities.size() == 0)
-			return "Empty Network";
 		if (first.size() == 0)
-			return "Circular Path";
+			return "Empty Network";
 		String successful = calculatePaths();
 		if (successful.equals("Success")) {
 			sort(pathlength);
@@ -254,22 +253,15 @@ public class ActivityList {
 	}
 	public boolean Circular(ArrayList<Activity> list){
 
-		if (first.size()>1) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean Find(ArrayList<Activity> list, Activity wanted) {
-		boolean working = true;
-		for (int i = 0; i < list.size(); i++) {
-			if (wanted.name.equals(list.get(i).name))
-				return true;
-			if (list.get(i).successors.size() > 0) {
-				return Find(list.get(i).successors, wanted);
+		for(int i=0;i<list.size();i++){// return true, if there is a duplicate
+			for(int j=i+1;j<list.size();j++){
+				if(list.get(i).name.equals(list.get(j).name)){
+					return true;
+				}
 			}
 		}
 		return false;
+
 	}
 
 	// This function creates a report file (.txt) with user specified name and will output a status text on whether file creation was successful

@@ -117,39 +117,36 @@ public class ActivityList {
 
 	}
 
-	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
+	public int traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		int ndur = 0;
 		int niterations = iterations + 1;
-		if (niterations > activities.size()) {
-			System.out.println(false);
-			return false;
-		}
-		boolean working = true;
+		if (niterations >= activities.size())
+			return activities.size() + 5;
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + list.get(i).name + ": " + list.get(i).duration;
 			ndur = dur + list.get(i).duration;
 			System.out.println(activities.size());
+			if (niterations >= activities.size())
+				return activities.size() + 5;
 			if (list.get(i).successors.size() > 0) {
 				//for (int j = 0; j < list.get(i).successors.size(); j++) {
 				npath += " --> ";
-				working = traverse(list.get(i).successors, npath, ndur, niterations);
-				if (!working)
-					return false;
-				//}
+				traverse(list.get(i).successors, npath, ndur, niterations);
 			}
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				return niterations;
 			}
 		}
-		return working;
+		return 0;
 	}
 
 	public String calculatePaths() {
 		String path = "";
 		int dur = 0;
 		int iterations = 0;
-		boolean successful;
+		int successful;
 		if (first.size() > 1)
 			return "1 or more nodes not connected";
 		for (int i = 0; i < first.size(); i++) {
@@ -163,7 +160,7 @@ public class ActivityList {
 			}
 			path += " --> ";
 			successful = traverse(first.get(i).successors, path, dur, iterations);
-			if (!successful)
+			if (successful >= activities.size())
 				return "Circular Path";
 		}
 		return "Success";

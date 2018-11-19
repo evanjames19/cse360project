@@ -140,6 +140,7 @@ public class ActivityList {
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				return true;
 			}
 		}
 		return working;

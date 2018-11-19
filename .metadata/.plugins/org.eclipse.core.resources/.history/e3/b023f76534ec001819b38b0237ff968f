@@ -124,25 +124,25 @@ public class ActivityList {
 			System.out.println(false);
 			return false;
 		}
-		boolean working = true;
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + list.get(i).name + ": " + list.get(i).duration;
 			ndur = dur + list.get(i).duration;
 			System.out.println(activities.size());
+			if (niterations > activities.size()) {
+				System.out.println(false);
+				return false;
+			}
 			if (list.get(i).successors.size() > 0) {
 				//for (int j = 0; j < list.get(i).successors.size(); j++) {
 				npath += " --> ";
-				working = traverse(list.get(i).successors, npath, ndur, niterations);
-				if (!working)
-					return false;
-				//}
+				traverse(list.get(i).successors, npath, ndur, niterations);
 			}
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
 			}
 		}
-		return working;
+		return true;
 	}
 
 	public String calculatePaths() {

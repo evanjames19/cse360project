@@ -18,4 +18,3 @@ INDEX VERSION 1.131+C:\Users\shuchi\Documents\GitHub\cse360project\.metadata\.pl
 2327184759.index
 1713295793.index
 866495595.index
-1067094681.index

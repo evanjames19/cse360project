@@ -120,26 +120,28 @@ public class ActivityList {
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		int ndur = 0;
 		int niterations = iterations + 1;
+		boolean working = true;
 		if (niterations > activities.size()) {
 			System.out.println(false);
-			return false;
+			working = false;
 		}
-		boolean working = true;
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + list.get(i).name + ": " + list.get(i).duration;
 			ndur = dur + list.get(i).duration;
 			System.out.println(activities.size());
+			if (niterations > activities.size()) {
+				System.out.println(false);
+				working = false;
+			}
 			if (list.get(i).successors.size() > 0) {
 				//for (int j = 0; j < list.get(i).successors.size(); j++) {
 				npath += " --> ";
-				working = traverse(list.get(i).successors, npath, ndur, niterations);
-				if (!working)
-					return false;
-				//}
+				working = working && traverse(list.get(i).successors, npath, ndur, niterations);
 			}
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				working = true;
 			}
 		}
 		return working;
