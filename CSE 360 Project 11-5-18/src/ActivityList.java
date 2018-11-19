@@ -179,13 +179,13 @@ public class ActivityList {
 				pathlengthcopy.add(pathlength.get(i));
 			}
 			if (critical) {
-				int clength = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1));
+				int clength = pathlengthSorted.get(paths.size()-1);
+				System.out.println("clength: " + clength + "\n");
 				for (int i = 0; i < paths.size(); i++) {
 					int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
-					if (j == clength) {
+					if (pathlengthSorted.get(paths.size()-1-i) == clength) {
 						pathlengthcopy.set(j, -1);
 						System.out.println(pathlengthcopy);
-						System.out.println(j);
 						pathList = pathList + paths.get(j) + "\n" + "Critical Path Duration: " + pathlength.get(j) + "\n\n\n\n"; 
 					}
 					else {
@@ -198,7 +198,6 @@ public class ActivityList {
 					int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
 					pathlengthcopy.set(j, -1);
 					System.out.println(pathlengthcopy);
-					System.out.println(j);
 					pathList = pathList + paths.get(j) + "\n" + "Duration: " + pathlength.get(j) + "\n\n\n\n"; 
 				}
 			}
