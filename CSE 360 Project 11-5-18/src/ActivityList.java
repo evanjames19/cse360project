@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public class ActivityList {
 
@@ -120,29 +119,33 @@ public class ActivityList {
 
 	public boolean traverse(ArrayList<Activity> list, String path, int dur, int iterations) {
 		int ndur = 0;
+		int niterations = iterations + 1;
+		if (niterations > activities.size()) {
+			System.out.println(false);
+			return false;
+		}
+		boolean working = true;
 		for (int i = 0; i < list.size(); i++) {
 			String npath = path + list.get(i).name + ": " + list.get(i).duration;
-			int niterations = iterations + 1;
 			ndur = dur + list.get(i).duration;
 			System.out.println(activities.size());
-			if (niterations > activities.size()) {
-				System.out.println(false);
-				return false;
-			}
 			if (list.get(i).successors.size() > 0) {
 				//for (int j = 0; j < list.get(i).successors.size(); j++) {
 				npath += " --> ";
-				traverse(list.get(i).successors, npath, ndur, niterations);
+				working = traverse(list.get(i).successors, npath, ndur, niterations);
+				if (!working)
+					return false;
 				//}
 			}
 			else {
 				paths.add(npath);
 				pathlength.add(ndur);
+				return true;
 			}
 		}
-		return true;
+		return working;
 	}
-
+	
 	public String calculatePaths() {
 		String path = "";
 		int dur = 0;
@@ -154,8 +157,11 @@ public class ActivityList {
 			path = first.get(i).name + ": " + first.get(i).duration;
 			dur += first.get(i).duration;
 			iterations++;
-			/*if (first.get(i).successors.size() <= 0)
-				return "1 or more nodes not connected";*/
+			if (first.get(i).successors.size() == 0) {
+				paths.add(path);
+				pathlength.add(dur);
+				return "Success";
+			}
 			path += " --> ";
 			successful = traverse(first.get(i).successors, path, dur, iterations);
 			if (!successful)
@@ -168,10 +174,10 @@ public class ActivityList {
 		String pathList = "";
 		pathlength = new ArrayList<Integer>();
 		paths = new ArrayList<String>();
+		if (first.size() == 0)
+			return "Empty Network";
 		String successful = calculatePaths();
 		if (successful.equals("Success")) {
-			if (pathlength.size() < 1)
-				return "Circular Path";
 			sort(pathlength);
 			ArrayList<Integer> pathlengthcopy = new ArrayList<Integer>();
 			for (int i = 0; i < pathlength.size(); i++) {
@@ -179,7 +185,7 @@ public class ActivityList {
 			}
 			if (critical) {
 				int clength = pathlengthSorted.get(paths.size()-1);
-				System.out.println("clength: " + clength + "\n");
+				//System.out.println("clength: " + clength + "\n");
 				for (int i = 0; i < paths.size(); i++) {
 					int j = pathlengthcopy.indexOf(pathlengthSorted.get(paths.size()-1-i));
 					if (pathlengthSorted.get(paths.size()-1-i) == clength) {
@@ -293,7 +299,7 @@ public class ActivityList {
 			pw.println("Created on: " + date.toString() + "\n");
 			pw.print("Activities: ");
 
-			List<String> activityNames = new ArrayList();									// this arrayList of string will hold the activity names
+			ArrayList<String> activityNames = new ArrayList();									// this arrayList of string will hold the activity names
 
 			for (int i = 0; i < activities.size(); i++) {									// loops through activities created and stores name in activityNames
 				activityNames.add(activities.get(i).name);

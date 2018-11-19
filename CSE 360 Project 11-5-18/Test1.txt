@@ -1,27 +1,12 @@
 Report Title: Test1.txt
 
-Created on: Sun Nov 18 20:47:08 MST 2018
+Created on: Sun Nov 18 20:56:02 MST 2018
 
-Activities: 0, A, B, C, D, End
+Activities: A, B, C, D
 
 Paths:
-0: 0 --> A: 19 --> B: 4 --> End: 0
-Duration: 23
-
-
-
-0: 0 --> C: 1 --> B: 4 --> End: 0
-Duration: 5
-
-
-
-0: 0 --> C: 1 --> D: 4 --> End: 0
-Duration: 5
-
-
-
-0: 0 --> C: 1 --> End: 0
-Duration: 1
+A: 2 --> B: 1 --> C: 3 --> D: 4
+Duration: 10
 
 
 
