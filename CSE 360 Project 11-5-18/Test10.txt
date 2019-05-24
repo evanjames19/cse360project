@@ -1,0 +1,27 @@
+Report Title: Test10.txt
+
+Created on: Mon Nov 19 13:36:28 MST 2018
+
+Activities: A, B, C, D, E
+
+Paths:
+A: 8 --> C: 7 --> E: 4
+Duration: 19
+
+
+
+A: 8 --> B: 5 --> E: 4
+Duration: 17
+
+
+
+A: 8 --> D: 5 --> E: 4
+Duration: 17
+
+
+
+A: 8 --> E: 4
+Duration: 12
+
+
+
